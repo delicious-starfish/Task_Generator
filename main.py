@@ -90,6 +90,8 @@ def get_audio_from(platform):
     
     audio_list = []
     for audio_folder in os.listdir(base_directory):
+        if os.path.isfile(os.path.join(base_directory, platform, audio_folder)):
+            continue
         full_path = os.path.join(base_directory, platform, audio_folder, 'audio')
         for audio in os.listdir(full_path):
             path = os.path.join(full_path,audio)
