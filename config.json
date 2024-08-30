@@ -1,6 +1,6 @@
 {
-    "bili_folder":"123",
-    "dl_file_folder":"123",
-    "task_output_folder":"C:/ResearchProject/Datas/task_output",
-    "move_destination":"C:/ResearchProject/Datas/processed"
+    "bili_folder":"/mnt/public_mmdet3d/emilia_bilibili_extend_0802/downloaded",
+    "dl_file_folder":"/mnt/public_mmdet3d/dl_File",
+    "task_output_folder":"/mnt/public_mmdet3d/emilia_bilibili_extend_0802/Tasks",
+    "move_destination":"/mnt/public_mmdet3d/Emilia-processed-audios"
 }
