@@ -47,8 +47,8 @@ def extract_folder_from_task(task_file_name):
     task_dict = {}
     for audio in audio_list:
         audio = audio.split('/')
-        platform = audio[1]
-        taskname = audio[2]
+        platform = audio[-4]
+        taskname = audio[-3]
         
         if not (taskname in task_dict.keys() and task_dict[taskname] == platform):
             # 不同平台可能有相同的任务名
@@ -90,6 +90,12 @@ def get_audio_from(platform):
     
     audio_list = []
     for audio_folder in os.listdir(base_directory):
+        full_path = os.path.join(base_directory, platform, audio_folder, 'audio')
+        for audio in os.listdir(full_path):
+            path = os.path.join(full_path,audio)
+            audio_list.append(path)
+    
+    return audio_list
         
 if __name__ == '__main__':
 
