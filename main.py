@@ -1,4 +1,5 @@
 import os
+import json
 
 from Operate_File.file_read import read_json
 from Operate_File.file_build import build_dir
@@ -14,6 +15,22 @@ def move_previous_audio():
     for taskname in processed_folder_dict.keys():
         platform = processed_folder_dict[taskname]
         move_task_folder(platform,taskname)
+
+def generate_new_task(task_file_name):
+    audio_list = get_audio_from('bilibili')
+    with open(cfg['task_output_folder'] + task_file_name,'w',encoding = 'utf-8') as f:
+        for audio in audio_list:
+            f.write(json.dumps(audio,ensure_ascii=False) + '\n')
+
+    audio_list = get_audio_from('youtube')
+    with open(cfg['task_output_folder'] + task_file_name,'a',encoding = 'utf-8') as f:
+        for audio in audio_list:
+            f.write(json.dumps(audio,ensure_ascii=False) + '\n')
+
+    audio_list = get_audio_from('archive')
+    with open(cfg['task_output_folder'] + task_file_name,'a',encoding = 'utf-8') as f:
+        for audio in audio_list:
+            f.write(json.dumps(audio,ensure_ascii=False) + '\n')
 
 def prepare_destination_folders():
     platforms = ['bilibili','youtube','archive']
@@ -64,10 +81,26 @@ def get_task_folder_path(platform,taskname):
         return os.path.join(cfg["bili_folder"],platform,taskname)
     else:
         return os.path.join(cfg['dl_file_folder'],platform,taskname)
+    
+def get_audio_from(platform):
+    if platform == 'bilibili':
+        base_directory = cfg['bili_folder']
+    else:
+        base_directory = cfg['dl_file_folder']
+    
+    audio_list = []
+    for audio_folder in os.listdir(base_directory):
+        
 if __name__ == '__main__':
 
     move_previous_audio()
 
-    get_
-
-    # generate_new_task()
+    new_id = find_previous_task()
+    if new_id == 'Not Found':
+        new_id = '1'
+    else:
+        new_id = new_id.split('.')[0]
+        new_id = str(int(new_id) + 1)
+    
+    new_task_name = new_id + '.task'
+    generate_new_task(new_task_name)
