@@ -18,16 +18,19 @@ def move_previous_audio():
 
 def generate_new_task(task_file_name):
     audio_list = get_audio_from('bilibili')
+    print(len(audio_list))
     with open(cfg['task_output_folder'] + task_file_name,'w',encoding = 'utf-8') as f:
         for audio in audio_list:
             f.write(json.dumps(audio,ensure_ascii=False) + '\n')
 
     audio_list = get_audio_from('youtube')
+    print(len(audio_list))
     with open(cfg['task_output_folder'] + task_file_name,'a',encoding = 'utf-8') as f:
         for audio in audio_list:
             f.write(json.dumps(audio,ensure_ascii=False) + '\n')
 
     audio_list = get_audio_from('archive')
+    print(len(audio_list))
     with open(cfg['task_output_folder'] + task_file_name,'a',encoding = 'utf-8') as f:
         for audio in audio_list:
             f.write(json.dumps(audio,ensure_ascii=False) + '\n')
