@@ -8,13 +8,23 @@ def move_previous_audio():
     previous_task_file_name = find_previous_task() #找到最近的task文件，用于指明目录下哪些需要移走,返回task的文件名
     if previous_task_file_name == 'Not Found':
         return
-    processed_folder_dict_list = extract_folder_from_task(previous_task_file_name) #一个字典，key为文件夹名,value为平台名
+    processed_folder_dict = extract_folder_from_task(previous_task_file_name) #一个字典，key为文件夹名,value为平台名
 
 def extract_folder_from_task(task_file_name):
     with open(os.path.join(cfg['task_output_folder'], task_file_name),'r') as f:
         audio_list = f.readlines()
-    for i in range(20):
-        print(audio_list[i])
+
+    task_dict = {}
+    for audio in audio_list:
+        audio = audio.split('/')
+        platform = audio[1]
+        taskname = audio[2]
+        
+        if not (taskname in task_dict.keys() and task_dict[taskname] == platform):
+            # 不同平台可能有相同的任务名
+            task_dict[taskname] = platform
+
+
     return []
     
 
