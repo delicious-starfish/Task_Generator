@@ -90,13 +90,11 @@ def get_audio_from(platform):
         base_directory = cfg['dl_file_folder']
     
     audio_list = []
-    # print('audio_folder:' + os.path.join(base_directory, platform))
     
     for audio_folder in os.listdir(os.path.join(base_directory, platform)):
         if os.path.isfile(os.path.join(base_directory, platform, audio_folder)):
             continue
         full_path = os.path.join(base_directory, platform, audio_folder, 'audio')
-        print('full_path:' + full_path)
         for audio in os.listdir(full_path):
             path = os.path.join(full_path,audio)
             audio_list.append(path)
